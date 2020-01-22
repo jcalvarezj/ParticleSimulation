@@ -20,13 +20,9 @@ int main(int argc, char ** args) {
 
 	bool quit = false;
 
-	SDL_Event event;
-
 	while (!quit) {
-
-		while (SDL_PollEvent(&event))
-			if (event.type == SDL_QUIT)
-				quit = true;
+		if(!screen.processEvents())
+			quit = true;
 	}
 
 	screen.close();
