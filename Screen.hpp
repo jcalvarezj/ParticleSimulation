@@ -6,12 +6,13 @@
  */
 #include "SDL2/SDL.h"
 
-#ifndef SCREEN_H
-#define SCREEN_H
+#ifndef SCREEN_HPP
+#define SCREEN_HPP
 
 typedef const unsigned int cint;
 
 namespace ParticleSimulation {
+
 class Screen {
 public:
 	const static unsigned int S_WIDTH = 800;
@@ -25,9 +26,12 @@ public:
 	Screen();
 	bool init();
 	bool processEvents();
+	void update();
+	void setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue);
 	void close();
 };
+
 } // namespace ParticleSimulation
 
-#endif // SCREEN_H
+#endif // SCREEN_HPP
 

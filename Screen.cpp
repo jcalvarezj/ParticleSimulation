@@ -4,7 +4,7 @@
  *
  * @author J. Alvarez
  */
-#include "Screen.h"
+#include "Screen.hpp"
 #include <iostream>
 
 namespace ParticleSimulation {
@@ -53,36 +53,7 @@ bool Screen::init() {
 	}
 
 	m_buffer = new Uint32[S_WIDTH * S_HEIGHT];
-
 	memset(m_buffer, 0, S_WIDTH * S_HEIGHT * sizeof(Uint32));
-
-	cint paintCol = S_WIDTH/2;
-	cint paintRow = S_HEIGHT/2;
-
-	for (int i = 0; i < S_HEIGHT; i++)
-		m_buffer[i * S_WIDTH + paintCol] = 0x0FFFF0FF;
-
-	for (int i = 0; i < S_WIDTH; i++)
-		m_buffer[paintRow * S_WIDTH + i] = 0x0FFFF0FF;
-
-	for (int i = 0; i < S_HEIGHT/2 - 1; i++)
-		for (int j = 0; j < S_WIDTH/2 - 1; j++) {
-			m_buffer[i * S_WIDTH + j] = 0xFFCC00FF;
-			m_buffer[(i * S_WIDTH + j) + S_WIDTH/2 + 2] = 0x00CCF0FF;
-			m_buffer[(i + S_HEIGHT/2 + 1) * S_WIDTH + j] = 0x0FCC0A00;
-			m_buffer[(i + S_HEIGHT/2 + 1) * S_WIDTH + j + S_WIDTH/2 + 2] = 0xAD0C0A00;
-		}
-
-	m_buffer[40 * S_WIDTH + 100] = 0xFF00FF;
-	m_buffer[40 * S_WIDTH + 101] = 0xFF00FF;
-	m_buffer[40 * S_WIDTH + 102] = 0xFF00FF;
-	m_buffer[40 * S_WIDTH + 103] = 0xFF0000;
-	m_buffer[40 * S_WIDTH + 104] = 0xFF0000;
-
-	SDL_UpdateTexture(m_texture, NULL, m_buffer, S_WIDTH * sizeof(Uint32));
-	SDL_RenderClear(m_renderer);
-	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
-	SDL_RenderPresent(m_renderer);
 
 	return true;
 }
@@ -95,6 +66,25 @@ bool Screen::processEvents() {
 			return false;
 
 	return true;
+}
+
+void Screen::update() {
+	SDL_UpdateTexture(m_texture, NULL, m_buffer, S_WIDTH * sizeof(Uint32));
+	SDL_RenderClear(m_renderer);
+	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
+	SDL_RenderPresent(m_renderer);
+}
+
+void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
+	Uint32 color = 0;
+	color += red;
+	color <<= 8;
+	color += green;
+	color <<= 8;
+	color += blue;
+	color <<= 8;
+	color += 0xFF;
+	m_buffer[y * S_WIDTH + x] = color;
 }
 
 void Screen::close() {
