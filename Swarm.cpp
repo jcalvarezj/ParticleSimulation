@@ -22,4 +22,9 @@ Particle * Swarm::getParticles() {
 	return m_particles;
 }
 
+void Swarm::update() {
+	for(int i = 0; i < N_PARTICLES; i++)
+		m_particles[i].update();
+}
+
 } // namespace ParticleSimulation

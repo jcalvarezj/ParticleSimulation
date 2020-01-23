@@ -53,7 +53,8 @@ bool Screen::init() {
 	}
 
 	m_buffer = new Uint32[S_WIDTH * S_HEIGHT];
-	memset(m_buffer, 0, S_WIDTH * S_HEIGHT * sizeof(Uint32));
+
+	clear();
 
 	return true;
 }
@@ -76,15 +77,21 @@ void Screen::update() {
 }
 
 void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
-	Uint32 color = 0;
-	color += red;
-	color <<= 8;
-	color += green;
-	color <<= 8;
-	color += blue;
-	color <<= 8;
-	color += 0xFF;
-	m_buffer[y * S_WIDTH + x] = color;
+	if (x >= 0 && x < S_WIDTH && y >= 0 && y < S_HEIGHT) {
+		Uint32 color = 0;
+		color += red;
+		color <<= 8;
+		color += green;
+		color <<= 8;
+		color += blue;
+		color <<= 8;
+		color += 0xFF;
+		m_buffer[y * S_WIDTH + x] = color;
+	}
+}
+
+void Screen::clear() {
+	memset(m_buffer, 0, S_WIDTH * S_HEIGHT * sizeof(Uint32));
 }
 
 void Screen::close() {

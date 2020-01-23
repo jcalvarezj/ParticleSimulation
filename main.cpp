@@ -29,7 +29,7 @@ int main(int argc, char ** args) {
 	bool quit = false;
 
 	while (!quit) {
-
+		swarm.update();
 		const Particle * const particles = swarm.getParticles();
 
 		int ellapsed = SDL_GetTicks();
@@ -37,6 +37,8 @@ int main(int argc, char ** args) {
 		Uint8 red = (1 + sin(ellapsed * 0.001)) * 128;
 		Uint8 green = (1 + sin(ellapsed * 0.002)) * 128;
 		Uint8 blue = (1 + sin(ellapsed * 0.003)) * 128;
+
+		screen.clear();
 
 		for(int i = 0; i < Swarm::N_PARTICLES; i++) {
 			Particle particle = particles[i];

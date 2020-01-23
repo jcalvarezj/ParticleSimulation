@@ -20,6 +20,7 @@ public:
 	Swarm();
 	~Swarm();
 	Particle * getParticles();
+	void update();
 };
 
 } // namespace ParticleSimulation
