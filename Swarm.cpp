@@ -7,24 +7,39 @@
 #include <iostream>
 #include "Swarm.hpp"
 #include "Particle.hpp"
+#include "RectangularParticle.hpp"
 
 namespace ParticleSimulation {
 
-Swarm::Swarm() {
-	m_particles = new Particle[N_PARTICLES];
+Swarm::Swarm(int type) {
+	switch(type) {
+		case TYPE::RECT:
+			m_particles = new Particle * [N_PARTICLES];
+			for (int i = 0; i < N_PARTICLES; i++)
+				m_particles[i] = new RectangularParticle;
+			break;
+		case TYPE::POLAR:
+			std::cout << "Not implemented!!!" << std::endl;
+			break;
+		default:
+			std::cout << "Not implemented!!!" << std::endl;
+			break;
+	}
 }
 
 Swarm::~Swarm() {
+	for (int i = 0; i < N_PARTICLES; i++)
+		delete m_particles[i];
 	delete [] m_particles;
 }
 
-Particle * Swarm::getParticles() {
+Particle * * Swarm::getParticles() {
 	return m_particles;
 }
 
 void Swarm::update() {
-	for(int i = 0; i < N_PARTICLES; i++)
-		m_particles[i].update();
+	for (int i = 0; i < N_PARTICLES; i++)
+		m_particles[i]->update();
 }
 
 } // namespace ParticleSimulation

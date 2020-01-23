@@ -1,23 +1,22 @@
 /*
- * Particle simulation program using the SDL library
- * Based on examples by John Purcell's (from Cave of Programming)
+ * Header file definition
  *
  * @author J. Alvarez
  */
+
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
 namespace ParticleSimulation {
 
 struct Particle {
-	double m_x;
-	double m_y;
-	double m_xSpeed;
-	double m_ySpeed;
-	Particle();
-	void update();
+virtual void update() = 0;
+virtual double getFirstCoordinate() = 0;
+virtual double getSecondCoordinate() = 0;
+virtual void toString() = 0;
 };
 
 } // namespace ParticleSimulation
 
 #endif // PARTICLE_HPP
+
