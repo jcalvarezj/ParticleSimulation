@@ -12,15 +12,8 @@
 namespace ParticleSimulation {
 
 struct RectangularParticle: Particle {
-	double m_x;
-	double m_y;
-	double m_xSpeed;
-	double m_ySpeed;
 	RectangularParticle();
 	void update();
-	double getFirstCoordinate();
-	double getSecondCoordinate();
-	void toString();
 };
 
 } // namespace ParticleSimulation

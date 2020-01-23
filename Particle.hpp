@@ -10,10 +10,14 @@
 namespace ParticleSimulation {
 
 struct Particle {
-virtual void update() = 0;
-virtual double getFirstCoordinate() = 0;
-virtual double getSecondCoordinate() = 0;
-virtual void toString() = 0;
+	double m_coord1;
+	double m_coord2;
+	double m_coord1Speed;
+	double m_coord2Speed;
+
+	Particle(int coord1, int coord2): m_coord1(coord1), m_coord2(coord2) {}
+
+	virtual void update() = 0;
 };
 
 } // namespace ParticleSimulation

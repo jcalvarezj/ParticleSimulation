@@ -45,8 +45,8 @@ int main(int argc, char ** args) {
 		for (int i = 0; i < Swarm::N_PARTICLES; i++) {
 			Particle * particle = particles[i];
 
-			double coord1 = particle->getFirstCoordinate();
-			double coord2 = particle->getSecondCoordinate();
+			double coord1 = particle->m_coord1;
+			double coord2 = particle->m_coord2;
 
 			int x = (coord1 + 1) * Screen::S_WIDTH / 2;
 			int y = (coord2 + 1) * Screen::S_HEIGHT / 2;
