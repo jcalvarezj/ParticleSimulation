@@ -13,7 +13,7 @@ namespace ParticleSimulation {
 
 class Swarm {
 public:
-	const static int N_PARTICLES = 1234;
+	const static int N_PARTICLES = 2222;
 	enum TYPE {RECT, POLAR};
 private:
 	Particle * * m_particles;

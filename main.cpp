@@ -70,7 +70,10 @@ int main(int argc, char ** args) {
 			int y = 0;
 
 			if (swarmType == Swarm::TYPE::RECT) {
-				x = (coord1 + 1) * Screen::S_WIDTH / 2;
+				if (rectMode == RectangularParticle::RECTANGLE)
+					x = (coord1 + 1) * Screen::S_WIDTH / 2;
+				else
+					x = coord1 * Screen::S_HEIGHT / 2 + Screen::S_WIDTH / 2;
 				y = (coord2 + 1) * Screen::S_HEIGHT / 2;
 			}
 			else {

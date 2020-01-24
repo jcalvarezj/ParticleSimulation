@@ -20,7 +20,7 @@ RectangularParticle::RectangularParticle(int mode): m_mode(mode), m_radSpeed(0),
 			break;
 		case MODE::CIRCLE:
 			m_angle = 2 * M_PI * rand() / RAND_MAX;
-			m_radSpeed = 0.001 * rand() / RAND_MAX;
+			m_radSpeed = 0.01 * rand() / RAND_MAX;
 			break;
 		default:
 			std::cout << "Mode not implemented!" << std::endl;
@@ -33,11 +33,12 @@ void RectangularParticle::update() {
 		m_coord1Speed = m_radSpeed * cos(m_angle);
 		m_coord2Speed = m_radSpeed * sin(m_angle);
 	}
-
-	if (m_coord1 + m_coord1Speed < -1 || m_coord1 + m_coord1Speed > 1)
-		m_coord1Speed *= -1;
-	if (m_coord2 + m_coord2Speed < -1 || m_coord2 + m_coord2Speed > 1)
-		m_coord2Speed *= -1;
+	else {
+		if (m_coord1 + m_coord1Speed < -1 || m_coord1 + m_coord1Speed > 1)
+			m_coord1Speed *= -1;
+		if (m_coord2 + m_coord2Speed < -1 || m_coord2 + m_coord2Speed > 1)
+			m_coord2Speed *= -1;
+	}
 
 	m_coord1 += m_coord1Speed;
 	m_coord2 += m_coord2Speed;
