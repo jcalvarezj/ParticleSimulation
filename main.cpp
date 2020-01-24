@@ -52,11 +52,11 @@ int main(int argc, char ** args) {
 
 		Particle * * particles = swarm.getParticles();
 
-		int ellapsed = SDL_GetTicks();
+		int elapsed = SDL_GetTicks();
 
-		Uint8 red = (1 + sin(ellapsed * 0.001)) * 128;
-		Uint8 green = (1 + sin(ellapsed * 0.0002)) * 128;
-		Uint8 blue = (1 + sin(ellapsed * 0.0003)) * 128;
+		Uint8 red = (1 + sin(elapsed * 0.001)) * 128;
+		Uint8 green = (1 + sin(elapsed * 0.0002)) * 128;
+		Uint8 blue = (1 + sin(elapsed * 0.0003)) * 128;
 
 		screen.clear();
 
