@@ -27,36 +27,40 @@ int main(int argc, char ** args) {
 	}
 
 	int swarmType = 0;
-	int rectMode = 0;
+	int mode = 0;
 
 	switch (argc) {
 		case 1:
 			swarmType = Swarm::TYPE::POLAR;
+			mode = Particle::Mode::POLR_FLWR;
 			break;
 		case 2:
+			swarmType = Swarm::TYPE::POLAR;
+			mode = Particle::Mode::POLR_SPRL;
+			break;
+		case 3:
 			swarmType = Swarm::TYPE::RECT;
-			rectMode = RectangularParticle::MODE::RECTANGLE;
+			mode = Particle::Mode::RECT_RECT;
 			break;
 		default:
 			swarmType = Swarm::TYPE::RECT;
-			rectMode = RectangularParticle::MODE::CIRCLE;
+			mode = Particle::Mode::RECT_CIRC;
 			break;
 	}
 
-	Swarm swarm(swarmType, rectMode);
+	Swarm swarm(swarmType, mode);
 
 	bool quit = false;
 
 	while (!quit) {
-		swarm.update();
-
-		Particle * * particles = swarm.getParticles();
-
 		int elapsed = SDL_GetTicks();
 
 		Uint8 red = (1 + sin(elapsed * 0.001)) * 128;
 		Uint8 green = (1 + sin(elapsed * 0.0002)) * 128;
 		Uint8 blue = (1 + sin(elapsed * 0.0003)) * 128;
+
+		swarm.update(elapsed);
+		Particle * * particles = swarm.getParticles();
 
 		screen.clear();
 
@@ -70,7 +74,7 @@ int main(int argc, char ** args) {
 			int y = 0;
 
 			if (swarmType == Swarm::TYPE::RECT) {
-				if (rectMode == RectangularParticle::RECTANGLE)
+				if (mode == Particle::Mode::RECT_RECT)
 					x = (coord1 + 1) * Screen::S_WIDTH / 2;
 				else
 					x = coord1 * Screen::S_HEIGHT / 2 + Screen::S_WIDTH / 2;

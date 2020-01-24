@@ -18,11 +18,12 @@ public:
 private:
 	Particle * * m_particles;
 	int m_type;
+	int m_lastUpdate;
 public:
 	Swarm(int type, int rectMode);
 	~Swarm();
 	Particle * * getParticles();
-	void update();
+	void update(int elapsed);
 	int getType();
 };
 

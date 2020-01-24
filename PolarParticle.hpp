@@ -12,9 +12,10 @@
 namespace ParticleSimulation {
 
 struct PolarParticle: Particle {
+	int m_mode;
 	double m_phase;
-	PolarParticle();
-	void update();
+	PolarParticle(int mode);
+	void update(int interval);
 };
 
 } // namespace ParticleSimulation

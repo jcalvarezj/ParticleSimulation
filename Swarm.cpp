@@ -12,17 +12,17 @@
 
 namespace ParticleSimulation {
 
-Swarm::Swarm(int type, int rectMode): m_type(type) {
+Swarm::Swarm(int type, int mode): m_type(type), m_lastUpdate(0) {
 	switch (m_type) {
 		case TYPE::RECT:
 			m_particles = new Particle * [N_PARTICLES];
 			for (int i = 0; i < N_PARTICLES; i++)
-				m_particles[i] = new RectangularParticle(rectMode);
+				m_particles[i] = new RectangularParticle(mode);
 			break;
 		case TYPE::POLAR:
 			m_particles = new Particle * [N_PARTICLES];
 			for (int i = 0; i < N_PARTICLES; i++)
-				m_particles[i] = new PolarParticle;
+				m_particles[i] = new PolarParticle(mode);
 			break;
 		default:
 			std::cout << "Type not implemented!!!" << std::endl;
@@ -40,9 +40,10 @@ Particle * * Swarm::getParticles() {
 	return m_particles;
 }
 
-void Swarm::update() {
+void Swarm::update(int elapsed) {
 	for (int i = 0; i < N_PARTICLES; i++)
-		m_particles[i]->update();
+		m_particles[i]->update(elapsed - m_lastUpdate);
+	m_lastUpdate = elapsed;
 }
 
 int Swarm::getType() {

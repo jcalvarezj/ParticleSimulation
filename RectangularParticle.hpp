@@ -12,12 +12,11 @@
 namespace ParticleSimulation {
 
 struct RectangularParticle: Particle {
-	enum MODE {RECTANGLE, CIRCLE};
 	int m_mode;
 	double m_radSpeed;
 	double m_angle;
 	RectangularParticle(int mode);
-	void update();
+	void update(int interval);
 };
 
 } // namespace ParticleSimulation

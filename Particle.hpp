@@ -12,9 +12,13 @@ namespace ParticleSimulation {
 /**
  * This Struct represents Particles in general: particles with rectangular or
  * polar coordinates. For rectangular coordinates, coord1 and 2 are x and y
- * respectively; for polar coodinates, r and theta.
+ * respectively; for polar coodinates, r and theta. However, for polar 
+ * coordinates, coord1Speed will be used for other purposes such as rotational
+ * speed
  */
 struct Particle {
+	enum Mode {RECT_RECT, RECT_CIRC, POLR_FLWR, POLR_SPRL};
+
 	double m_coord1;
 	double m_coord2;
 	double m_coord1Speed;
@@ -24,7 +28,7 @@ struct Particle {
 			double coord2Speed): m_coord1(coord1), m_coord2(coord2),
 			m_coord1Speed(coord1Speed), m_coord2Speed(coord2Speed) {}
 
-	virtual void update() = 0;
+	virtual void update(int interval) = 0;
 };
 
 } // namespace ParticleSimulation
