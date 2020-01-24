@@ -5,7 +5,6 @@
  * @author J. Alvarez
  */
 #include <stdlib.h>
-#include <iostream>
 #include "RectangularParticle.hpp"
 #include "Screen.hpp"
 

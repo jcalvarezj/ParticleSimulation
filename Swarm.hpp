@@ -17,11 +17,13 @@ public:
 	enum TYPE {RECT, POLAR};
 private:
 	Particle * * m_particles;
+	int m_type;
 public:
 	Swarm(int type);
 	~Swarm();
 	Particle * * getParticles();
 	void update();
+	int getType();
 };
 
 } // namespace ParticleSimulation

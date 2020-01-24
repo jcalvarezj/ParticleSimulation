@@ -8,18 +8,21 @@
 #include "Swarm.hpp"
 #include "Particle.hpp"
 #include "RectangularParticle.hpp"
+#include "PolarParticle.hpp"
 
 namespace ParticleSimulation {
 
-Swarm::Swarm(int type) {
-	switch(type) {
+Swarm::Swarm(int type): m_type(type) {
+	switch(m_type) {
 		case TYPE::RECT:
 			m_particles = new Particle * [N_PARTICLES];
 			for (int i = 0; i < N_PARTICLES; i++)
 				m_particles[i] = new RectangularParticle;
 			break;
 		case TYPE::POLAR:
-			std::cout << "Not implemented!!!" << std::endl;
+			m_particles = new Particle * [N_PARTICLES];
+			for (int i = 0; i < N_PARTICLES; i++)
+				m_particles[i] = new PolarParticle;
 			break;
 		default:
 			std::cout << "Not implemented!!!" << std::endl;
@@ -40,6 +43,10 @@ Particle * * Swarm::getParticles() {
 void Swarm::update() {
 	for (int i = 0; i < N_PARTICLES; i++)
 		m_particles[i]->update();
+}
+
+int Swarm::getType() {
+	return m_type;
 }
 
 } // namespace ParticleSimulation

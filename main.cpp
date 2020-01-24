@@ -25,7 +25,14 @@ int main(int argc, char ** args) {
 		return -1;
 	}
 
-	Swarm swarm(Swarm::TYPE::RECT);
+	int swarmType = 0;
+
+	if (argc > 1)
+		swarmType = Swarm::TYPE::POLAR;
+	else
+		swarmType = Swarm::TYPE::RECT;
+
+	Swarm swarm(swarmType);
 
 	bool quit = false;
 
@@ -48,8 +55,17 @@ int main(int argc, char ** args) {
 			double coord1 = particle->m_coord1;
 			double coord2 = particle->m_coord2;
 
-			int x = (coord1 + 1) * Screen::S_WIDTH / 2;
-			int y = (coord2 + 1) * Screen::S_HEIGHT / 2;
+			int x = 0;
+			int y = 0;
+
+			if (swarmType == Swarm::TYPE::RECT) {
+				x = (coord1 + 1) * Screen::S_WIDTH / 2;
+				y = (coord2 + 1) * Screen::S_HEIGHT / 2;
+			}
+			else {
+				x = (coord1 * cos(coord2)) + Screen::S_WIDTH / 2;
+				y = (coord1 * sin(coord2)) + Screen::S_HEIGHT / 2;
+			}
 
 			screen.setPixel(x, y, red, green, blue);
 		}
