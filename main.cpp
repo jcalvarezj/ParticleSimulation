@@ -12,10 +12,11 @@
 #include "Screen.hpp"
 #include "Swarm.hpp"
 #include "SDL2/SDL.h"
+#include "RectangularParticle.hpp"
 
 using namespace ParticleSimulation;
 
-int main(int argc, char ** args) {
+int main(int argc, char ** args) {	
 	srand(time(NULL));
 
 	Screen screen;
@@ -26,13 +27,23 @@ int main(int argc, char ** args) {
 	}
 
 	int swarmType = 0;
+	int rectMode = 0;
 
-	if (argc > 1)
-		swarmType = Swarm::TYPE::POLAR;
-	else
-		swarmType = Swarm::TYPE::RECT;
+	switch (argc) {
+		case 1:
+			swarmType = Swarm::TYPE::POLAR;
+			break;
+		case 2:
+			swarmType = Swarm::TYPE::RECT;
+			rectMode = RectangularParticle::MODE::RECTANGLE;
+			break;
+		default:
+			swarmType = Swarm::TYPE::RECT;
+			rectMode = RectangularParticle::MODE::CIRCLE;
+			break;
+	}
 
-	Swarm swarm(swarmType);
+	Swarm swarm(swarmType, rectMode);
 
 	bool quit = false;
 

@@ -11,7 +11,7 @@
 
 namespace ParticleSimulation {
 
-PolarParticle::PolarParticle(): Particle(0,0) {
+PolarParticle::PolarParticle(): Particle(0, 0, 0, 0) {
 	m_coord1 = 3.0 * rand() / RAND_MAX;
 	m_coord2 = 2 * M_PI * rand() / RAND_MAX;
 	m_coord1Speed = 0;

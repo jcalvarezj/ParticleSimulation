@@ -19,7 +19,7 @@ private:
 	Particle * * m_particles;
 	int m_type;
 public:
-	Swarm(int type);
+	Swarm(int type, int rectMode);
 	~Swarm();
 	Particle * * getParticles();
 	void update();

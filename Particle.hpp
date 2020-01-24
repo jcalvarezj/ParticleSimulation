@@ -20,7 +20,9 @@ struct Particle {
 	double m_coord1Speed;
 	double m_coord2Speed;
 
-	Particle(int coord1, int coord2): m_coord1(coord1), m_coord2(coord2) {}
+	Particle(double coord1, double coord2, double coord1Speed,
+			double coord2Speed): m_coord1(coord1), m_coord2(coord2),
+			m_coord1Speed(coord1Speed), m_coord2Speed(coord2Speed) {}
 
 	virtual void update() = 0;
 };
