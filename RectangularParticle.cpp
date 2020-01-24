@@ -8,6 +8,7 @@
 #include <iostream>
 #include "RectangularParticle.hpp"
 #include "Screen.hpp"
+#include <math.h>
 
 namespace ParticleSimulation {
 

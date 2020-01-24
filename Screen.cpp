@@ -6,6 +6,7 @@
  */
 #include "Screen.hpp"
 #include <iostream>
+#include <cstring>
 
 namespace ParticleSimulation {
 
