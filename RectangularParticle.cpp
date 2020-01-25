@@ -14,6 +14,12 @@ namespace ParticleSimulation {
 
 RectangularParticle::RectangularParticle(int mode): m_mode(mode), m_radSpeed(0),
 	m_angle(0), Particle(0, 0, 0, 0) {
+		init();
+}
+
+void RectangularParticle::init() {
+	m_coord1 = 0;
+	m_coord2 = 0;
 	switch (m_mode) {
 		case Mode::RECT_RECT:
 			m_coord1Speed = 0.0005 * ((2.0 * rand() / RAND_MAX) - 1);
@@ -23,22 +29,36 @@ RectangularParticle::RectangularParticle(int mode): m_mode(mode), m_radSpeed(0),
 			m_angle = 2 * M_PI * rand() / RAND_MAX;
 			m_radSpeed = 0.001 * rand() / RAND_MAX;
 			break;
+		case Mode::RECT_IMPD:
+			m_angle = 2 * M_PI * rand() / RAND_MAX;
+			m_radSpeed = 0.05 * rand() / RAND_MAX;
+			m_radSpeed *= m_radSpeed;
+			break;
 		default:
-			std::cout << "Mode not implemented!" << std::endl;
+			std::cout << "Rectangular mode not implemented!" << std::endl;
 			break;
 	}
 }
 
 void RectangularParticle::update(int interval) {
-	if (m_mode == Mode::RECT_CIRC) {
-		m_coord1Speed = m_radSpeed * cos(m_angle);
-		m_coord2Speed = m_radSpeed * sin(m_angle);
-	}
-	else {
-		if (m_coord1 + m_coord1Speed < -1 || m_coord1 + m_coord1Speed > 1)
-			m_coord1Speed *= -1;
-		if (m_coord2 + m_coord2Speed < -1 || m_coord2 + m_coord2Speed > 1)
-			m_coord2Speed *= -1;
+	switch(m_mode) {
+		case Mode::RECT_CIRC:
+			m_coord1Speed = m_radSpeed * cos(m_angle);
+			m_coord2Speed = m_radSpeed * sin(m_angle);
+			break;
+		case Mode::RECT_RECT:
+			if (m_coord1 + m_coord1Speed < -1 || m_coord1 + m_coord1Speed > 1)
+				m_coord1Speed *= -1;
+			if (m_coord2 + m_coord2Speed < -1 || m_coord2 + m_coord2Speed > 1)
+				m_coord2Speed *= -1;
+			break;
+		case Mode::RECT_IMPD:
+			m_angle += interval * 0.0003;
+			m_coord1Speed = m_radSpeed * cos(m_angle);
+			m_coord2Speed = m_radSpeed * sin(m_angle);
+			if (m_coord1 < -1 || m_coord1 > 1 || m_coord2 < -1 || m_coord2 > 1)
+				init();
+			break;
 	}
 
 	m_coord1 += m_coord1Speed * interval;

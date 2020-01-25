@@ -15,7 +15,9 @@ struct RectangularParticle: Particle {
 	int m_mode;
 	double m_radSpeed;
 	double m_angle;
+
 	RectangularParticle(int mode);
+	void init();
 	void update(int interval);
 };
 

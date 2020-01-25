@@ -55,6 +55,10 @@ int main(int argc, char ** argv) {
 				swarmType = Swarm::TYPE::RECT;
 				mode = Particle::Mode::RECT_RECT;
 				break;
+			case 4:
+				swarmType = Swarm::TYPE::RECT;
+				mode = Particle::Mode::RECT_IMPD;
+				break;
 			default:
 				swarmType = Swarm::TYPE::RECT;
 				mode = Particle::Mode::RECT_CIRC;

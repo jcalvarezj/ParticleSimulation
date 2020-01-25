@@ -17,7 +17,7 @@ namespace ParticleSimulation {
  * speed
  */
 struct Particle {
-	enum Mode {RECT_RECT, RECT_CIRC, POLR_FLWR, POLR_SPRL};
+	enum Mode {RECT_RECT, RECT_CIRC, RECT_IMPD, POLR_FLWR, POLR_SPRL};
 
 	double m_coord1;
 	double m_coord2;

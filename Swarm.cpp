@@ -25,7 +25,7 @@ Swarm::Swarm(int type, int mode): m_type(type), m_lastUpdate(0) {
 				m_particles[i] = new PolarParticle(mode);
 			break;
 		default:
-			std::cout << "Type not implemented!!!" << std::endl;
+			std::cout << "Swarm type not implemented!!!" << std::endl;
 			break;
 	}
 }
