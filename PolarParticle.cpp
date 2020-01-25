@@ -26,7 +26,7 @@ PolarParticle::PolarParticle(int mode): m_phase(0), Particle(0, 0, 0, 0, mode) {
 			m_coord2Speed = 0.01;
 			break;
 		default:
-			std::cout << "Polar mode not implemented!" << std::endl;
+			std::cout << "Polar mode" << m_mode << "not implemented!" << std::endl;
 			break;
 	}
 }
@@ -43,7 +43,8 @@ void PolarParticle::update(int interval) {
 			m_coord1 = (4 * m_coord2 + m_phase);
 			break;
 		default:
-			std::cout << "Polar mode not implemented!" << std::endl;
+			std::cout << "Polar mode" << m_mode << "not implemented!" << std::endl;
+			break;
 	}
 }
 

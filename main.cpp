@@ -35,13 +35,7 @@ int main(int argc, char ** argv) {
 	bool clearScreen = true;
 	bool boxBlur = false;
 
-	if (argc >= 3)
-		clearScreen = false;
-
-	if (argc == 4)
-		boxBlur = true;
-
-	if (argc >= 2)
+	if (argc >= 2) {
 		switch (std::stoi(argv[1])) {
 			case 1:
 				swarmType = Swarm::TYPE::POLAR;
@@ -64,6 +58,13 @@ int main(int argc, char ** argv) {
 				mode = Particle::Mode::RECT_IMPD;
 				break;
 		}
+
+		if (argc >= 3)
+			clearScreen = false;
+
+		if (argc >= 4)
+			boxBlur = true;
+	}
 	else {
 		swarmType = Swarm::TYPE::POLAR;
 		mode = Particle::Mode::POLR_FLWR;

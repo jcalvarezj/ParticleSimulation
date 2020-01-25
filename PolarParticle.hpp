@@ -15,7 +15,6 @@ namespace ParticleSimulation {
  * This Structure represents a Particle based on polar coordinates
  */
 struct PolarParticle: Particle {
-	int m_mode;
 	double m_phase;
 
 	/**
