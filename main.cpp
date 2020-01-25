@@ -2,8 +2,9 @@
  * Particle simulation program using the SDL library.
  * Based on examples by John Purcell's (from Cave of Programming).
  * The first argument should be a number between 1-4, to choose the mode to
- * display (polar coordinates particles moving in a flower pattern); the second
- * one (any value) will disable screen clearing (enabled by default).
+ * display (no arguments for flower pattern of polar coordinates particles); the
+ * second one (any value) will disable screen clearing (enabled by default); and
+ * the third one (any value) will create a box blur effect.
  *
  * @author J. Alvarez
  */
@@ -32,9 +33,13 @@ int main(int argc, char ** argv) {
 	int swarmType = 0;
 	int mode = 0;
 	bool clearScreen = true;
+	bool boxBlur = false;
 
-	if (argc > 2)
+	if (argc >= 3)
 		clearScreen = false;
+
+	if (argc == 4)
+		boxBlur = true;
 
 	if (argc >= 2)
 		switch (std::stoi(argv[1])) {
@@ -59,7 +64,6 @@ int main(int argc, char ** argv) {
 		swarmType = Swarm::TYPE::POLAR;
 		mode = Particle::Mode::POLR_FLWR;
 	}
-
 
 	Swarm swarm(swarmType, mode);
 
@@ -101,6 +105,9 @@ int main(int argc, char ** argv) {
 
 			screen.setPixel(x, y, red, green, blue);
 		}
+
+		if (boxBlur)
+			screen.boxBlur();
 
 		screen.update();
 

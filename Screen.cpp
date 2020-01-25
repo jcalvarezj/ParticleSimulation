@@ -11,7 +11,7 @@
 namespace ParticleSimulation {
 
 Screen::Screen(): m_window(NULL), m_renderer(NULL), m_texture(NULL),
-	m_buffer(NULL) {}
+	m_mainBuffer(NULL), m_backBuffer(NULL) {}
 
 bool Screen::init() {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -53,9 +53,11 @@ bool Screen::init() {
 		return false;
 	}
 
-	m_buffer = new Uint32[S_WIDTH * S_HEIGHT];
+	m_mainBuffer = new Uint32[S_WIDTH * S_HEIGHT];
+	m_backBuffer = new Uint32[S_WIDTH * S_HEIGHT];
 
 	clear();
+	memset(m_backBuffer, 0, S_WIDTH * S_HEIGHT * sizeof(Uint32));
 
 	return true;
 }
@@ -71,10 +73,48 @@ bool Screen::processEvents() {
 }
 
 void Screen::update() {
-	SDL_UpdateTexture(m_texture, NULL, m_buffer, S_WIDTH * sizeof(Uint32));
+	SDL_UpdateTexture(m_texture, NULL, m_mainBuffer, S_WIDTH * sizeof(Uint32));
 	SDL_RenderClear(m_renderer);
 	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
 	SDL_RenderPresent(m_renderer);
+}
+
+void Screen::boxBlur() {
+	Uint32 * aux = m_mainBuffer;
+	m_mainBuffer = m_backBuffer;
+	m_backBuffer = aux;
+
+	for (int i = 0; i < S_HEIGHT; i++) {
+		for (int j = 0; j < S_WIDTH; j++) {
+			int redTotal = 0;
+			int greenTotal = 0;
+			int blueTotal = 0;
+
+			for (int k = -1; k <= 1; k++) {
+				for (int l = -1; l <= 1; l++) {
+					int m = i + k;
+					int n = j + l;
+
+					if (m >= 0 && m < S_HEIGHT && n >= 0 && n < S_WIDTH) {
+						Uint32 color = m_backBuffer[m * S_WIDTH + n];
+						Uint8 red = color >> 24;
+						Uint8 green = color >> 16;
+						Uint8 blue = color >> 8;
+
+						redTotal += red;
+						greenTotal += green;
+						blueTotal += blue;
+					}
+				}
+			}
+
+			Uint8 newRed = redTotal/9;
+			Uint8 newGreen = greenTotal/9;
+			Uint8 newBlue = blueTotal/9;
+
+			setPixel(j, i, newRed, newGreen, newBlue);
+		}
+	}
 }
 
 void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
@@ -87,16 +127,17 @@ void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
 		color += blue;
 		color <<= 8;
 		color += 0xFF;
-		m_buffer[y * S_WIDTH + x] = color;
+		m_mainBuffer[y * S_WIDTH + x] = color;
 	}
 }
 
 void Screen::clear() {
-	memset(m_buffer, 0, S_WIDTH * S_HEIGHT * sizeof(Uint32));
+	memset(m_mainBuffer, 0, S_WIDTH * S_HEIGHT * sizeof(Uint32));
 }
 
 void Screen::close() {
-	delete [] m_buffer;
+	delete [] m_mainBuffer;
+	delete [] m_backBuffer;
 
 	SDL_DestroyTexture(m_texture);
 	SDL_DestroyRenderer(m_renderer);
