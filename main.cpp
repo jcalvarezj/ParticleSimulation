@@ -1,6 +1,9 @@
 /*
- * Particle simulation program using the SDL library
- * Based on examples by John Purcell's (from Cave of Programming)
+ * Particle simulation program using the SDL library.
+ * Based on examples by John Purcell's (from Cave of Programming).
+ * The first argument should be a number between 1-4, to choose the mode to
+ * display (polar coordinates particles moving in a flower pattern); the second
+ * one (any value) will disable screen clearing (enabled by default).
  *
  * @author J. Alvarez
  */
@@ -16,7 +19,7 @@
 
 using namespace ParticleSimulation;
 
-int main(int argc, char ** args) {	
+int main(int argc, char ** argv) {	
 	srand(time(NULL));
 
 	Screen screen;
@@ -28,25 +31,35 @@ int main(int argc, char ** args) {
 
 	int swarmType = 0;
 	int mode = 0;
+	bool clearScreen = true;
 
-	switch (argc) {
-		case 1:
-			swarmType = Swarm::TYPE::POLAR;
-			mode = Particle::Mode::POLR_FLWR;
-			break;
-		case 2:
-			swarmType = Swarm::TYPE::POLAR;
-			mode = Particle::Mode::POLR_SPRL;
-			break;
-		case 3:
-			swarmType = Swarm::TYPE::RECT;
-			mode = Particle::Mode::RECT_RECT;
-			break;
-		default:
-			swarmType = Swarm::TYPE::RECT;
-			mode = Particle::Mode::RECT_CIRC;
-			break;
+	if (argc > 2)
+		clearScreen = false;
+
+	if (argc >= 2)
+		switch (std::stoi(argv[1])) {
+			case 1:
+				swarmType = Swarm::TYPE::POLAR;
+				mode = Particle::Mode::POLR_FLWR;
+				break;
+			case 2:
+				swarmType = Swarm::TYPE::POLAR;
+				mode = Particle::Mode::POLR_SPRL;
+				break;
+			case 3:
+				swarmType = Swarm::TYPE::RECT;
+				mode = Particle::Mode::RECT_RECT;
+				break;
+			default:
+				swarmType = Swarm::TYPE::RECT;
+				mode = Particle::Mode::RECT_CIRC;
+				break;
+		}
+	else {
+		swarmType = Swarm::TYPE::POLAR;
+		mode = Particle::Mode::POLR_FLWR;
 	}
+
 
 	Swarm swarm(swarmType, mode);
 
@@ -62,7 +75,8 @@ int main(int argc, char ** args) {
 		swarm.update(elapsed);
 		Particle * * particles = swarm.getParticles();
 
-		screen.clear();
+		if (clearScreen)
+			screen.clear();
 
 		for (int i = 0; i < Swarm::N_PARTICLES; i++) {
 			Particle * particle = particles[i];
