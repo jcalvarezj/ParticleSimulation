@@ -46,8 +46,5 @@ void Swarm::update(int elapsed) {
 	m_lastUpdate = elapsed;
 }
 
-int Swarm::getType() {
-	return m_type;
-}
 
 } // namespace ParticleSimulation

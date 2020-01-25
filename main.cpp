@@ -96,7 +96,8 @@ int main(int argc, char ** argv) {
 			int y = 0;
 
 			if (swarmType == Swarm::TYPE::RECT) {
-				if (mode == Particle::Mode::RECT_RECT)
+				if (mode == Particle::Mode::RECT_RECT || mode 
+						== Particle::Mode::RECT_IMPD)
 					x = (coord1 + 1) * Screen::S_WIDTH / 2;
 				else
 					x = coord1 * Screen::S_HEIGHT / 2 + Screen::S_WIDTH / 2;

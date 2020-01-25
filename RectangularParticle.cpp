@@ -12,8 +12,8 @@
 
 namespace ParticleSimulation {
 
-RectangularParticle::RectangularParticle(int mode): m_mode(mode), m_radSpeed(0),
-	m_angle(0), Particle(0, 0, 0, 0) {
+RectangularParticle::RectangularParticle(int mode): m_radSpeed(0),
+	m_angle(0), Particle(0, 0, 0, 0, mode) {
 		init();
 }
 
@@ -56,6 +56,7 @@ void RectangularParticle::update(int interval) {
 			m_angle += interval * 0.0003;
 			m_coord1Speed = m_radSpeed * cos(m_angle);
 			m_coord2Speed = m_radSpeed * sin(m_angle);
+
 			if (m_coord1 < -1 || m_coord1 > 1 || m_coord2 < -1 || m_coord2 > 1)
 				init();
 			break;

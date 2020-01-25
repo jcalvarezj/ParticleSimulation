@@ -20,11 +20,29 @@ private:
 	int m_type;
 	int m_lastUpdate;
 public:
+	/**
+	 * Creates a Swarm instance based on a specified type and Particles mode
+	 * @param type The Swarm type
+	 * @param mode The Particles type
+	 */
 	Swarm(int type, int rectMode);
+
+	/**
+	 * Destructor method that ensures to delete the Swarm's Particles structure
+	 */
 	~Swarm();
+
+	/**
+	 * @return The Particles structure
+	 */
 	Particle * * getParticles();
+
+	/**
+	 * Updates all the Swarm's Particles
+	 * @param elapsed Time of Screen rendering
+	 */
 	void update(int elapsed);
-	int getType();
+
 };
 
 } // namespace ParticleSimulation

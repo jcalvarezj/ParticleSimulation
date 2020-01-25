@@ -12,12 +12,22 @@
 namespace ParticleSimulation {
 
 struct RectangularParticle: Particle {
-	int m_mode;
 	double m_radSpeed;
 	double m_angle;
 
+	/**
+	 * Creates an instance of RectangularParticle with a specified mode
+	 */
 	RectangularParticle(int mode);
+
+	/**
+	 * Initializes the RectangularParticle's fields
+	 */
 	void init();
+
+	/**
+	 * @see Particle#update
+	 */
 	void update(int interval);
 };
 

@@ -12,7 +12,7 @@
 
 namespace ParticleSimulation {
 
-PolarParticle::PolarParticle(int mode): m_phase(0), m_mode(mode), Particle(0, 0, 0, 0) {
+PolarParticle::PolarParticle(int mode): m_phase(0), Particle(0, 0, 0, 0, mode) {
 	m_coord1 = 3.0 * rand() / RAND_MAX;
 	m_coord2 = 2 * M_PI * rand() / RAND_MAX;
 
