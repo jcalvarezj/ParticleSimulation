@@ -14,7 +14,7 @@ Install the libsdl2-2.0-0 and libsdl2-dev libraries.
 
 MinGW with g++ compiler should be installed on your system.
 
-Download the latest _SDL2-devel-2.x.x-mingw_ from [SDL's official page](https://www.libsdl.org/index.php) and uncompress on an easy access directory (such as C:\SDL, for example). 
+Download the latest _SDL2-devel-2.x.x-mingw_ from [SDL's official page](https://www.libsdl.org/index.php) and uncompress on an easy access directory (such as C:\\SDL, for example). 
 
 From the folder named with your desired architecture, copy the _bin_ folder's content onto your MinGW's _bin_ folder, and the _include_ folder's contents onto MinGW's _include_
 
