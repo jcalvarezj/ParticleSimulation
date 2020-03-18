@@ -39,4 +39,4 @@ Modes are:
 
 For example: **./a.out 5 x x**
 
-[Screenshot of one of the animations, with an implemented effect of box blur](https://jcalvarezj.github.io/img/Particles.png)
+![Screenshot of one of the animations, with an implemented effect of box blur](https://jcalvarezj.github.io/img/Particles.png)
